@@ -1,0 +1,102 @@
+### get all index
+GET http://localhost:9200/_cat/indices?v
+Content-Type: application/json
+
+### create index
+PUT http://localhost:9200/ecommerce_users HTTP/1.1
+
+### date mapping
+PUT http://localhost:9200/ecommerce_users/_mapping HTTP/1.1
+Content-Type: application/json
+
+{
+  "date_detection": true,
+  "dynamic_date_formats": [
+    "yyyy/MM/dd HH:mm:ss",
+    "yyyy-MM-dd HH:mm:ss"
+  ]
+}
+
+### number mapping
+PUT http://localhost:9200/ecommerce_users/_mapping HTTP/1.1
+Content-Type: application/json
+
+{
+  "numeric_detection": true
+}
+
+### get mapping
+GET http://localhost:9200/ecommerce_books/_mapping HTTP/1.1
+Content-Type: application/json
+
+### create api
+POST http://localhost:9200/ecommerce_books/_create/5f7dcddb-45c5-4666-b76e-5aea69c47579 HTTP/1.1
+Content-Type: application/json
+
+{
+  "title": "Java for Beginners",
+  "author": "Oracle",
+  "publisher": "Oracle",
+  "year": 2024,
+  "created_at": "2024-01-02 15:16:30",
+  "updated_at": "2024-01-02 15:16:30",
+  "deleted_at": null
+}
+
+### create api user
+POST http://localhost:9200/ecommerce_users/_create/4a593942-a8bb-4326-9501-89d457a262ac HTTP/1.1
+Content-Type: application/json
+
+{
+  "name": "Kim Gaeul",
+  "email": "gaeul@email.com",
+  "phone": "08881210906",
+  "address": "south korea",
+  "created_at": "2024-01-02 15:50:30",
+  "updated_at": "2024-01-02 15:50:30",
+  "deleted_at": null
+}
+
+### delete api
+DELETE http://localhost:9200/ecommerce_books/_doc/hello HTTP/1.1
+Content-Type: application/json
+
+### get api
+GET http://localhost:9200/ecommerce_books/_doc/5f7dcddb-45c5-4666-b76e-5aea69c47579 HTTP/1.1
+Content-Type: application/json
+
+### get source api
+GET http://localhost:9200/ecommerce_books/_source/5f7dcddb-45c5-4666-b76e-5aea69c47579 HTTP/1.1
+Content-Type: application/json
+
+### check exist
+HEAD http://localhost:9200/ecommerce_books/_source/hello HTTP/1.1
+Content-Type: application/json
+
+# not found
+# HTTP/1.1 404 Not Found
+# X-elastic-product: Elasticsearch
+# content-type: application/json
+# content-length: 229
+
+# found
+# HTTP/1.1 200 OK
+# X-elastic-product: Elasticsearch
+# content-type: application/json
+# content-length: 59
+
+### multi get
+POST http://localhost:9200/ecommerce_books/_mget HTTP/1.1
+Content-Type: application/json
+
+{
+  "ids": ["hai", "hello"]
+}
+
+# multi get index
+POST http://localhost:9200/ecommerce_books/_mget HTTP/1.1
+Content-Type: application/json
+
+{
+  "ids": ["hai", "hello"]
+}
